@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -24,6 +25,17 @@ namespace alertMe {
             this.smtp.Send(this.mail);
         }
 
+        public String generateBody() {
+            String body = String.Empty;
+            String file = AppDomain.CurrentDomain.BaseDirectory + @"\MailTemplates\" + this.cfg.template + ".htm";
+            
+            using ( StreamReader sr = new StreamReader(file)) {
+
+            }
+
+            return body;
+        }
+
         #region Setup
 
         public void setupSMTP () {
@@ -35,10 +47,11 @@ namespace alertMe {
         }
 
         public void setupMail () {
-            this.mail = new MailMessage(this.cfg.from, this.cfg.targetEmail, this.cfg.subject, this.cfg.message);
+            this.mail = new MailMessage(this.cfg.from, this.cfg.targetEmail, this.cfg.subject, this.generateBody());
             this.mail.Priority = MailPriority.High;
             this.mail.IsBodyHtml = true;
         }
+
 
         #endregion Setup
 

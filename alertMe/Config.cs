@@ -37,7 +37,7 @@ namespace alertMe
         public String subject { get; set; }
 
         [JsonProperty]
-        public String message { get; set; }
+        public String template { get; set; }
 
         public Config() {
             // Mock values
@@ -50,7 +50,7 @@ namespace alertMe
             this.hourRange = new String[] { "09:00:00", "18:00:00" };
             this.from = "username@example.com";
             this.subject = "[AlertMe] Detected new login outside allowed hour range";
-            this.message = "Details about incident ... ";
+            this.template = "main";
         }
 
         public static bool Exists() { return System.IO.File.Exists(Properties.Settings.Default.configFile); }
