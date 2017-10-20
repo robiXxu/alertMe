@@ -44,7 +44,7 @@ namespace alertMe
             this.smtpHost = "mail.example.com";
             this.smtpPort = 587;
             this.smtpSSL = true;
-            this.smtpUser = "username";
+            this.smtpUser = "usern ame";
             this.smtpPass = "password";
             this.targetEmail = "test@example.com";
             this.hourRange = new String[] { "09:00:00", "18:00:00" };
@@ -54,6 +54,20 @@ namespace alertMe
         }
 
         public static bool Exists() { return System.IO.File.Exists(Properties.Settings.Default.configFile); }
+
+        public bool isDefaultConfig()
+        {
+            Config defaultCfg = new Config();
+            string separator = ",";
+            return string.Join(separator, this.GetType()
+                .GetProperties()
+                .Select((prop) => prop.GetValue(this))
+                .ToArray())
+                .Equals(string.Join(separator, defaultCfg.GetType()
+                .GetProperties()
+                .Select((prop) => prop.GetValue(defaultCfg))
+                .ToArray()));
+        }
         
         public bool isInHourRange() {
 

@@ -16,11 +16,15 @@ namespace alertMe
         public Core()
         {
             this.loadConfig((x) => {
-                if (!this.cfg.isInHourRange()) {
-                    // Violation
+                if (this.cfg.isDefaultConfig()) {
+                    return;
+                } else {
+                    if (!this.cfg.isInHourRange()) {
+                        // Violation
 
-                    this.mail = new Mail(this.cfg);
-                    this.mail.send("UserInfo: " + (System.Environment.UserName + "@" + System.Environment.MachineName));
+                        this.mail = new Mail(this.cfg);
+                        this.mail.send("UserInfo: " + (System.Environment.UserName + "@" + System.Environment.MachineName));
+                    }
                 }
             });
         }
